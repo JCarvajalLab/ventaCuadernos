@@ -7,6 +7,9 @@ import CartView from '../views/CartView.vue'
 import LoginView from '../views/LoginView.vue'
 import CuentaView from '../views/CuentaView.vue'
 import RegistroView from '../views/RegistroView.vue'
+import ContactView from '../views/ContactView.vue'
+import InfoView from '../views/InfoView.vue'
+import AllProductosView from '../views/AllProductosView.vue'
 import NotFoundView from '../views/NotFoundView.vue' // Importa la vista de error 404
 
 const routes = [
@@ -14,6 +17,11 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView
+  },
+  {
+    path: '/allproductos',
+    name: 'allproductos',
+    component: AllProductosView
   },
   {
     path: '/catalogo',
@@ -26,6 +34,11 @@ const routes = [
     component: CheckoutView
   },
   {
+    path: '/contacto',
+    name: 'contacto',
+    component: ContactView
+  },
+  {
     path: '/producto/:id',
     name: 'producto',
     component: ProductoView
@@ -34,6 +47,11 @@ const routes = [
     path: '/carrito',
     name: 'carrito',
     component: CartView
+  },
+  {
+    path: '/informacion',
+    name: 'informacion',
+    component: InfoView
   },
   {
     path: '/iniciar-sesion',

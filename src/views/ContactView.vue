@@ -1,12 +1,12 @@
 <template>
-<ItemNavbar/>
+<ItemNavbar />
 <div>
     <h1>
-      homeview
+        Contacto
     </h1>
 </div>
 
-<ItemFooter/>
+<ItemFooter />
 </template>
 
 <script>
@@ -14,8 +14,11 @@ import ItemNavbar from '../components/ItemNavbar.vue'
 import ItemFooter from '../components/ItemFooter.vue'
 
 export default {
-  name: 'HomeView',
-  components: { ItemNavbar, ItemFooter }
+    name: 'ContactView',
+    components: {
+        ItemNavbar,
+        ItemFooter
+    }
 }
 </script>
 
