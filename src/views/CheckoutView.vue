@@ -1,7 +1,7 @@
 <template>
 <div>
     <h1>
-      homeview
+        checkout
     </h1>
 </div>
 </template>

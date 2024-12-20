@@ -1,7 +1,7 @@
 <template>
 <div>
     <h1>
-      homeview
+        regitro
     </h1>
 </div>
 </template>
