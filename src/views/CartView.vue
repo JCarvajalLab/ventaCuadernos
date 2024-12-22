@@ -1,14 +1,24 @@
 <template>
+<ItemNavbar />
 <div>
     <h1>
         carrito
     </h1>
 </div>
+
+<ItemFooter />
 </template>
 
 <script>
-export default {
+import ItemNavbar from '../components/ItemNavbar.vue'
+import ItemFooter from '../components/ItemFooter.vue'
 
+export default {
+    name: 'CartView',
+    components: {
+        ItemNavbar,
+        ItemFooter
+    }
 }
 </script>
 
