@@ -1,5 +1,4 @@
 <template>
-<!-- Navbar -->
 <v-app-bar app class="bg-indigo-lighten-1" :elevation="0" rounded>
     <v-app-bar-nav-icon @click="drawer = !drawer" class="d-md-none"></v-app-bar-nav-icon>
     <v-app-bar-title>
@@ -13,37 +12,33 @@
         </div>
     </template>
 </v-app-bar>
-<!-- /Navbar -->
+
 <div>
     <v-img class="mx-auto my-6" max-width="228" src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"></v-img>
-
     <v-card class="mx-auto pa-12 pb-8" elevation="8" max-width="448" rounded="lg">
-        <div class="text-subtitle-1 text-medium-emphasis">Account</div>
+        <div class="text-subtitle-1 text-medium-emphasis">Create Account</div>
+
+        <v-text-field density="compact" placeholder="Full Name" prepend-inner-icon="mdi-account-outline" variant="outlined"></v-text-field>
 
         <v-text-field density="compact" placeholder="Email address" prepend-inner-icon="mdi-email-outline" variant="outlined"></v-text-field>
 
-        <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
-            Password
+        <v-text-field :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'" :type="visible ? 'text' : 'password'" density="compact" placeholder="Create a password" prepend-inner-icon="mdi-lock-outline" variant="outlined" @click:append-inner="visible = !visible"></v-text-field>
 
-            <a class="text-caption text-decoration-none text-blue" href="#" rel="noopener noreferrer" target="_blank">
-                Forgot login password?</a>
-        </div>
-
-        <v-text-field :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'" :type="visible ? 'text' : 'password'" density="compact" placeholder="Enter your password" prepend-inner-icon="mdi-lock-outline" variant="outlined" @click:append-inner="visible = !visible"></v-text-field>
+        <v-text-field :append-inner-icon="visibleConfirm ? 'mdi-eye-off' : 'mdi-eye'" :type="visibleConfirm ? 'text' : 'password'" density="compact" placeholder="Confirm your password" prepend-inner-icon="mdi-lock-outline" variant="outlined" @click:append-inner="visibleConfirm = !visibleConfirm"></v-text-field>
 
         <v-card class="mb-12" color="surface-variant" variant="tonal">
             <v-card-text class="text-medium-emphasis text-caption">
-                Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password.
+                Note: Please ensure that your password is at least 8 characters long and contains a mix of letters, numbers, and special characters.
             </v-card-text>
         </v-card>
 
-        <v-btn class="mb-8" color="blue" size="large" variant="tonal" block>
-            Log In
+        <v-btn class="mb-8" color="blue" size="large" variant="tonal" block @click="createAccount">
+            Sign Up
         </v-btn>
 
         <v-card-text class="text-center">
-            <v-btn class="text-blue text-decoration-none" @click="goCreacion">
-                Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
+            <v-btn class="text-blue text-decoration-none" @click="goLogin">
+                Already have an account? Log in <v-icon icon="mdi-chevron-right"></v-icon>
             </v-btn>
         </v-card-text>
     </v-card>
@@ -65,11 +60,16 @@ export default {
     data: () => ({
         visible: false,
         logo: require('@/assets/preview.png'),
+        visibleConfirm: false,
     }),
     methods: {
-        goCreacion() {
+        createAccount() {
+            // Aquí puedes agregar la lógica para crear la cuenta
+            console.log("Account creation logic goes here");
+        },
+        goLogin() {
             this.$router.push({
-                name: 'cuenta' // Asegúrate de que 'cuenta' sea el nombre correcto de tu ruta
+                name: 'login' // Asegúrate de que 'login' sea el nombre correcto de tu ruta de inicio de sesión
             });
         },
         goHome() {
