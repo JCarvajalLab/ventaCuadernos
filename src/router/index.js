@@ -54,8 +54,8 @@ const routes = [
     component: InfoView
   },
   {
-    path: '/iniciar-sesion',
-    name: 'iniciar-sesion',
+    path: '/login',
+    name: 'login',
     component: LoginView
   },
   {

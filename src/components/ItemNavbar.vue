@@ -15,7 +15,7 @@
             <v-btn text @click="goContacto" style="margin: 0 10px;">Contacto</v-btn>
         </div>
         <div class="d-flex justify-space-between">
-            <v-btn icon="mdi-account-key" text @click="goCuenta" style="margin: 0 10px;"></v-btn>
+            <v-btn icon="mdi-account-key" text @click="goLogin" style="margin: 0 10px;"></v-btn>
             <v-btn icon="mdi-cart-arrow-down" text @click="goCarro" style="margin: 0 10px;"></v-btn>
         </div>
     </template>
@@ -26,16 +26,21 @@
         <v-list-item @click="goHome">
             <v-list-item-title>Inicio</v-list-item-title>
         </v-list-item>
+        <v-divider></v-divider>
         <v-list-item @click="goProductos">
             <v-list-item-title>Todos los Productos</v-list-item-title>
         </v-list-item>
+        <v-divider></v-divider>
         <v-list-item @click="goInfo">
             <v-list-item-title>Información</v-list-item-title>
         </v-list-item>
+        <v-divider></v-divider>
         <v-list-item @click="goContacto">
             <v-list-item-title>Contacto</v-list-item-title>
         </v-list-item>
+        <v-divider></v-divider>
     </v-list>
+    
 </v-navigation-drawer>
 </template>
 
@@ -77,9 +82,9 @@ export default {
             }); // Asegúrate de que 'contact' sea el nombre correcto de tu ruta
             this.drawer = false;
         },
-        goCuenta() {
+        goLogin() {
             this.$router.push({
-                name: 'cuenta'
+                name: 'login'
             });
             this.drawer = false;
         },
