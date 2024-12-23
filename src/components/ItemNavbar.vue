@@ -16,7 +16,10 @@
         </div>
         <div class="d-flex justify-space-between">
             <v-btn icon="mdi-account-key" text @click="goLogin" style="margin: 0 10px;"></v-btn>
-            <v-btn icon="mdi-cart-arrow-down" text @click="goCarro" style="margin: 0 10px;"></v-btn>
+            <div style="display: flex; align-items: center;">
+                <v-btn icon="mdi-cart-arrow-down" text @click="goCarro" style="margin: 0 10px;"></v-btn>
+                <v-badge v-if="totalCantidad > 0" color="red" :content="totalCantidad" style="margin-left: -10px; margin-right:10px"> </v-badge> <!-- Badge al lado -->
+            </div>
         </div>
     </template>
 </v-app-bar>
@@ -40,17 +43,36 @@
         </v-list-item>
         <v-divider></v-divider>
     </v-list>
-    
 </v-navigation-drawer>
 </template>
 
 <script>
+import {
+    computed
+} from 'vue';
+import {
+    useStore
+} from 'vuex';
+
 export default {
     data() {
         return {
             drawer: false,
             logo: require('@/assets/preview.png') // Importa la imagen desde la carpeta assets
         }
+    },
+    setup() {
+        const store = useStore();
+
+        // Computed property para obtener la cantidad total de productos en el carrito
+        const totalCantidad = computed(() => {
+            return store.state.productos.reduce((total, producto) => total + producto.cantidad, 0);
+        });
+
+        return {
+            totalCantidad,
+            store
+        };
     },
     methods: {
         goToHome() {
@@ -61,25 +83,25 @@ export default {
         goHome() {
             this.$router.push({
                 name: 'home'
-            }); // Asegúrate de que 'home' sea el nombre correcto de tu ruta
+            });
             this.drawer = false;
         },
         goProductos() {
             this.$router.push({
                 name: 'allproductos'
-            }); // Asegúrate de que 'products' sea el nombre correcto de tu ruta
+            });
             this.drawer = false;
         },
         goInfo() {
             this.$router.push({
                 name: 'informacion'
-            }); // Asegúrate de que 'info' sea el nombre correcto de tu ruta
+            });
             this.drawer = false;
         },
         goContacto() {
             this.$router.push({
                 name: 'contacto'
-            }); // Asegúrate de que 'contact' sea el nombre correcto de tu ruta
+            });
             this.drawer = false;
         },
         goLogin() {

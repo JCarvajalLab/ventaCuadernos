@@ -1,20 +1,27 @@
 <template>
-<v-dialog v-model="localDialog" max-width="600">
-    <v-card>
-        <v-card-title class="text-h5">Producto agregado al carro de compras</v-card-title>
-        <v-card-text>
-            <div>
-                <strong>{{ product.name }}</strong><br>
-                Precio: {{ product.precio }}<br>
-                Descripción: {{ product.description }}<br>
-            </div>
-        </v-card-text>
-        <v-card-actions>
-            <v-btn color="blue" @click="seguirComprando">Seguir comprando</v-btn>
-            <v-btn color="green" @click="irAlCarro">Ir al carro</v-btn>
-        </v-card-actions>
-    </v-card>
-</v-dialog>
+    <v-dialog v-model="localDialog" max-width="600">
+        <v-card>
+            <v-card-title class="text-h5">Producto agregado al carro de compras</v-card-title>
+            <v-card-text>
+                <v-row>
+                    <v-col cols="12" md="4">
+                        <v-img :src="product.url" height="150" contain></v-img> <!-- Imagen del producto -->
+                    </v-col>
+                    <v-col cols="12" md="8">
+                        <div>
+                            <strong>{{ product.name }}</strong><br>
+                            <span>Precio: <strong>{{ product.precio }}</strong></span><br>
+                            <span>Descripción: {{ product.description }}</span><br>
+                        </div>
+                    </v-col>
+                </v-row>
+            </v-card-text>
+            <v-card-actions>
+                <v-btn color="blue" @click="seguirComprando">Seguir comprando</v-btn>
+                <v-btn color="green" @click="irAlCarro">Ir al carro</v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
 </template>
 
 <script>
