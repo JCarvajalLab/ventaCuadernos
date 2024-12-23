@@ -216,6 +216,7 @@ export default {
     max-width: 1170px;
     margin: 0 auto;
     margin-top: 20px;
+    margin-bottom: 20px;
     padding: 16px;
     background-color: #f9f9f9;
     border: 1px solid #ccc;
