@@ -38,7 +38,8 @@
                         </v-row>
                     </td>
                     <td>
-                        <v-select :items="cantidades" v-model="item.cantidad"> {{ cantidad }}</v-select>
+                        <v-select :items="cantidades" v-model="item.cantidad">
+                            {{ cantidad }}</v-select>
                     </td>
                     <td>
                         {{ formatoMoneda(parseFloat(item.precio.replace("$", ""))) }}
@@ -55,6 +56,13 @@
             </tbody>
         </v-table>
     </div>
+</div>
+
+<div class="resumen-compra">
+    <h2>Resumen de tu compra</h2>
+    <p>Total de la compra: $ {{ totalCompra }}</p>
+    <v-btn @click="$router.push({ name: 'allproductos' })">Agregar más productos</v-btn>
+    <v-btn @click="$router.push({ name: 'checkout' })">Continuar</v-btn>
 </div>
 <ItemFooter />
 </template>
@@ -78,9 +86,11 @@ export default {
     data() {
         return {
             cantidades: Array.from({
-                length: 10
-            }, (_, i) => i + 1)
-        }
+                    length: 10,
+                },
+                (_, i) => i + 1
+            ),
+        };
     },
     methods: {
         formatoMoneda(valor) {
@@ -102,7 +112,13 @@ export default {
                 0
             );
         });
-
+        const totalCompra = computed(() => {
+            return cartItems.value.reduce(
+                (total, item) =>
+                total + parseFloat(item.precio.replace("$", "")) * item.cantidad,
+                0
+            );
+        });
         const incrementQuantity = (item) => {
             if (item.cantidad < 10) {
                 item.cantidad++;
@@ -132,6 +148,7 @@ export default {
             decrementQuantity,
             removeFromCart,
             goHome,
+            totalCompra,
         };
     },
 };
@@ -181,16 +198,43 @@ export default {
     margin-right: 100px;
     text-align: justify;
 }
+
 .v-select {
-  width: 100%;
+    width: 100%;
 }
 
 .v-select .v-select__selection {
-  font-size: 16px;
+    font-size: 16px;
 }
 
 .v-select .v-select__menu {
-  max-height: 200px;
-  overflow-y: auto;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.resumen-compra {
+    max-width: 1170px;
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 16px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.resumen-compra h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.resumen-compra p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.resumen-compra .v-btn {
+    margin: 10px 0;
 }
 </style>
