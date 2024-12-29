@@ -14,11 +14,10 @@
     </template>
 </v-app-bar>
 <!-- /Navbar -->
-<div>
-    <h1>Checkout</h1>
-</div>
+
 
 <div class="checkout-container">
+    <!-- ¿Ya eres cliente? -->
     <div class="checkout-left">
         <div class="login-container">
             <h2>¿Ya eres cliente?</h2>
@@ -26,7 +25,10 @@
             <p>Inicia sesión para una compra más rápida.</p>
             <v-btn @click="iniciarSesion">Iniciar sesión</v-btn>
         </div>
+        </div>
         <div class="divider"></div>
+        <!-- ¿Todavía no tienes una cuenta? -->
+        <div class="checkout-left2">
         <div class="guest-container">
             <h2>¿Todavía no tienes una cuenta?</h2>
             <p>No te preocupes. Sigue tu compra como invitado.</p>
@@ -36,6 +38,8 @@
             </p>
         </div>
     </div>
+
+    <!-- Resumen de tu Compra -->
     <div class="checkout-right">
         <div class="resumen-compra">
             <h2>Resumen de tu compra</h2>
@@ -133,34 +137,41 @@ export default {
 }
 
 .checkout-container {
+    margin-top: 5%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }
 
-.checkout-left {
-    width: 50%;
+.checkout-left, .checkout-left2 {
+    width: 25%;
     padding: 20px;
     border: 1px solid #ccc;
-    border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 0; /* Elimina el margen */
+    
 }
-
-.checkout-right {
-    width: 40%;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.login-container {
-    margin-bottom: 20px;
+.checkout-left{
+    margin-left:100px;
 }
 
 .divider {
     border-bottom: 1px solid #ccc;
-    margin-bottom: 20px;
+    margin: 0; /* Elimina el margen */
+    height: 20px; /* Ajusta la altura del divisor si es necesario */
+}
+
+.login-container, .guest-container {
+    margin-bottom: 0; /* Elimina el margen inferior */
+}
+
+.checkout-right {
+    width: 25%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .guest-container {

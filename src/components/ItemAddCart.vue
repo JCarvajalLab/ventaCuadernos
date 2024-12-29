@@ -1,7 +1,7 @@
 <template>
     <v-dialog v-model="localDialog" max-width="600">
         <v-card>
-            <v-card-title class="text-h5">Producto agregado al carro de compras</v-card-title>
+            <v-card-title class="text-h5" >  <v-icon left color="green">mdi-check-decagram-outline</v-icon> Producto agregado al carro de compras</v-card-title>
             <v-card-text>
                 <v-row>
                     <v-col cols="12" md="4">
