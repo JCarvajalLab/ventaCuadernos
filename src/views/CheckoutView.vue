@@ -15,20 +15,19 @@
 </v-app-bar>
 <!-- /Navbar -->
 
-
 <div class="checkout-container">
     <!-- ¿Ya eres cliente? -->
-    <div class="checkout-left">
+    <div class="checkout-left" style="overflow: auto; max-height: 190px;">
         <div class="login-container">
             <h2>¿Ya eres cliente?</h2>
             <p>Ingresa con tu datos</p>
             <p>Inicia sesión para una compra más rápida.</p>
             <v-btn @click="iniciarSesion">Iniciar sesión</v-btn>
         </div>
-        </div>
-        <div class="divider"></div>
-        <!-- ¿Todavía no tienes una cuenta? -->
-        <div class="checkout-left2">
+    </div>
+    <div class="divider"></div>
+    <!-- ¿Todavía no tienes una cuenta? -->
+    <div class="checkout-left2" style="overflow: auto; max-height: 190px;">
         <div class="guest-container">
             <h2>¿Todavía no tienes una cuenta?</h2>
             <p>No te preocupes. Sigue tu compra como invitado.</p>
@@ -43,15 +42,19 @@
     <div class="checkout-right">
         <div class="resumen-compra">
             <h2>Resumen de tu compra</h2>
-            <p>Tu carro ({{ totalProducts }} productos)</p>
-            <v-btn @click="goCarro">Volver al carro</v-btn>
-            <div class="producto" v-for="producto in cartItems" :key="producto.id">
-                <h3>{{ producto.name }}</h3>
-                <p>Cantidad: {{ producto.cantidad }}</p>
-
-                <p>Total: {{ formatoMoneda(parseFloat(producto.precio.replace("$", "")) * producto.cantidad) }}</p>
+            <p>Tu carro ({{ totalProducts }} productos) <v-btn @click="goCarro" style="margin-left:60px">Volver al carro</v-btn>
+            </p>
+            <div class="productosList" style="overflow: auto; max-height: 400px; margin-top:20px">
+                <div class="producto" v-for="producto in cartItems" :key="producto.id">
+                    <img :src="producto.url" alt="Imagen del producto" style="width: 50px; height: 50px; margin-right: 10px;" />
+                    <div style="display: inline-block;">
+                        <h3>{{ producto.name }}</h3>
+                        <p>Cantidad: {{ producto.cantidad }}</p>
+                        <p>Total: {{ formatoMoneda(parseFloat(producto.precio.replace("$", "")) * producto.cantidad) }}</p>
+                    </div>
+                </div>
+                <p>Total de todos los productos: {{ formatoMoneda(totalCompra) }}</p>
             </div>
-            <p>Total de todos los productos: {{ formatoMoneda(totalCompra) }}</p>
         </div>
     </div>
 </div>
@@ -131,9 +134,7 @@ export default {
 <style scoped>
 .logo {
     height: 40px;
-    /* Ajusta la altura de la imagen según sea necesario */
     margin: 0;
-    /* Elimina márgenes si es necesario */
 }
 
 .checkout-container {
@@ -143,26 +144,28 @@ export default {
     justify-content: space-between;
 }
 
-.checkout-left, .checkout-left2 {
+.checkout-left,
+.checkout-left2 {
     width: 25%;
     padding: 20px;
     border: 1px solid #ccc;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin: 0; /* Elimina el margen */
-    
+    margin: 0;
 }
-.checkout-left{
-    margin-left:100px;
+
+.checkout-left {
+    margin-left: 100px;
 }
 
 .divider {
     border-bottom: 1px solid #ccc;
-    margin: 0; /* Elimina el margen */
-    height: 20px; /* Ajusta la altura del divisor si es necesario */
+    margin: 0;
+    height: 20px;
 }
 
-.login-container, .guest-container {
-    margin-bottom: 0; /* Elimina el margen inferior */
+.login-container,
+.guest-container {
+    margin-bottom: 0;
 }
 
 .checkout-right {
@@ -184,5 +187,17 @@ export default {
 
 .producto {
     margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    /* Alinea verticalmente la imagen y el texto */
+}
+
+.producto img {
+    width: 50px;
+    /* Ajusta el tamaño de la imagen */
+    height: 50px;
+    /* Ajusta el tamaño de la imagen */
+    margin-right: 10px;
+    /* Espacio entre la imagen y el texto */
 }
 </style>
