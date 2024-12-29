@@ -22,7 +22,7 @@
             <h2>¿Ya eres cliente?</h2>
             <p>Ingresa con tu datos</p>
             <p>Inicia sesión para una compra más rápida.</p>
-            <v-btn @click="iniciarSesion">Iniciar sesión</v-btn>
+            <v-btn @click="goLogin">Iniciar sesión</v-btn>
         </div>
     </div>
     <div class="divider"></div>
@@ -33,7 +33,7 @@
             <p>No te preocupes. Sigue tu compra como invitado.</p>
             <v-btn @click="continuarComoInvitado">Continuar como invitado</v-btn>
             <p>
-                <router-link to="/crear-cuenta">Crear nueva cuenta</router-link>
+                <router-link to="/cuenta">Crear nueva cuenta</router-link>
             </p>
         </div>
     </div>
@@ -126,7 +126,12 @@ export default {
             this.$router.push({
                 name: 'carrito'
             });
-        }
+        },
+        goLogin() {
+            this.$router.push({
+                name: 'login'
+            });
+        },
     }
 }
 </script>
