@@ -10,9 +10,11 @@
             Aún no tienes productos agregados. ¡Puedes ver nuestras categorías
             destacadas y hacer tu primera compra con nosotros!
         </div>
-        <v-btn v-if="totalProducts === 0" class="mt-4" color="blue" size="large" variant="tonal" block @click="goHome">
-            Regresar al inicio
-        </v-btn>
+        <router-link v-if="totalProducts === 0" to="/" class="text-decoration-none">
+            <v-btn class="mt-4" color="blue" size="large" variant="tonal" block>
+                Regresar al inicio
+            </v-btn>
+        </router-link>
 
         <v-table v-if="totalProducts > 0" class="mt-4">
             <thead>
