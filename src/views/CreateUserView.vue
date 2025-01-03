@@ -14,9 +14,9 @@
 </v-app-bar>
 
 <div>
-    <v-img class="mx-auto my-6" max-width="228" src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"></v-img>
-    <v-card class="mx-auto pa-12 pb-8" elevation="8" max-width="448" rounded="lg">
-        <div class="text-subtitle-1 text-medium-emphasis">Create Account</div>
+    <!-- <v-img class="mx-auto my-6" max-width="228" src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"></v-img> -->
+    <v-card class="mx-auto pa-12 pb-8" elevation="8" max-width="448" rounded="lg" style="margin-top:5%">
+        <div class="text-subtitle-1 text-medium-emphasis">Crea tu cuenta</div>
 
         <v-text-field density="compact" placeholder="Full Name" prepend-inner-icon="mdi-account-outline" variant="outlined"></v-text-field>
 
@@ -28,17 +28,17 @@
 
         <v-card class="mb-12" color="surface-variant" variant="tonal">
             <v-card-text class="text-medium-emphasis text-caption">
-                Note: Please ensure that your password is at least 8 characters long and contains a mix of letters, numbers, and special characters.
+                Nota: asegúrese de que su contraseña tenga al menos 8 caracteres y contenga una combinación de letras, números y caracteres especiales.
             </v-card-text>
         </v-card>
 
         <v-btn class="mb-8" color="blue" size="large" variant="tonal" block @click="createAccount">
-            Sign Up
+            Regístrate
         </v-btn>
 
         <v-card-text class="text-center">
             <v-btn class="text-blue text-decoration-none" @click="goLogin">
-                Already have an account? Log in <v-icon icon="mdi-chevron-right"></v-icon>
+                ¿Ya tienes cuenta? Inicia sesión<v-icon icon="mdi-chevron-right"></v-icon>
             </v-btn>
         </v-card-text>
     </v-card>
