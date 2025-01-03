@@ -19,7 +19,7 @@
     <v-card class="mx-auto pa-12 pb-8" elevation="8" max-width="448" rounded="lg" style="margin-top: 5%">
         <div class="text-subtitle-1 text-medium-emphasis">Usuario</div>
 
-        <v-text-field density="compact" placeholder="Email address" prepend-inner-icon="mdi-email-outline" variant="outlined"></v-text-field>
+        <v-text-field density="compact" placeholder="Email address" prepend-inner-icon="mdi-email-outline" variant="outlined" v-model="user.correoElectronico"></v-text-field>
 
         <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
             Contraseña
@@ -29,7 +29,7 @@
             </v-btn>
         </div>
 
-        <v-text-field :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'" :type="visible ? 'text' : 'password'" density="compact" placeholder="Enter your password" prepend-inner-icon="mdi-lock-outline" variant="outlined" @click:append-inner="visible = !visible"></v-text-field>
+        <v-text-field :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'" :type="visible ? 'text' : 'password'" density="compact" placeholder="Enter your password" prepend-inner-icon="mdi-lock-outline" variant="outlined" v-model="user.contrasena" @click:append-inner="visible = !visible"></v-text-field>
 
         <v-card class="mb-12" color="surface-variant" variant="tonal">
             <v-card-text class="text-medium-emphasis text-caption">
@@ -37,7 +37,7 @@
             </v-card-text>
         </v-card>
 
-        <v-btn class="mb-8" color="blue" size="large" variant="tonal" block>
+        <v-btn class="mb-8" color="blue" size="large" variant="tonal" block @click="login">
             Inicia sesión
         </v-btn>
 
@@ -61,12 +61,41 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-    data: () => ({
-        visible: false,
-        logo: require('@/assets/preview.png'),
-    }),
+    name: "LoginView",
+    data() {
+        return {
+            user: {
+                correoElectronico: '', //juan.perez@example.com
+                contrasena: '' //Jperez123
+            },
+            visible: false,
+            logo: require('@/assets/preview.png'),
+        }
+    },
     methods: {
+        login() {
+            if (!this.user.correoElectronico || !this.user.contrasena) {
+                alert('Debes llenar todos los campos')
+            } else {
+                axios.get('https://raw.githubusercontent.com/JCarvajalLab/LoginJsonAxios/refs/heads/main/config.json')
+                    .then((resp) => {
+                        if (this.user.correoElectronico === resp.data.login.correoElectronico && this.user.contrasena === resp.data.login.contrasena) {
+                            alert('logueado'),
+                                this.$router.push({
+                                    name: 'home'
+                                })
+                        } else {
+                            alert('no logueado')
+                        }
+                    })
+                    .catch((error) => {
+                        console.log("error en la solicitud", error)
+                    })
+            }
+        },
         goCreacion() {
             this.$router.push({
                 name: 'cuenta' // Asegúrate de que 'cuenta' sea el nombre correcto de tu ruta
