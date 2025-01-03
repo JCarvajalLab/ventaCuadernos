@@ -15,6 +15,22 @@
 </v-app-bar>
 <!-- /Navbar -->
 
+<v-stepper alt-labels>
+    <v-stepper-header>
+        <v-stepper-item title="Inicio de sesión" value="1" class="active-step">
+            <!-- Agregar un estilo personalizado para el paso activo -->
+        </v-stepper-item>
+
+        <v-divider></v-divider>
+
+        <v-stepper-item title="Tipo de Entrega" value="2"></v-stepper-item>
+
+        <v-divider></v-divider>
+
+        <v-stepper-item title="Pago" value="3"></v-stepper-item>
+    </v-stepper-header>
+</v-stepper>
+
 <div class="checkout-container">
     <!-- ¿Ya eres cliente? -->
     <div class="checkout-left" style="overflow: auto; max-height: 190px;">
@@ -204,5 +220,20 @@ export default {
     /* Ajusta el tamaño de la imagen */
     margin-right: 10px;
     /* Espacio entre la imagen y el texto */
+}
+
+.active-step {
+    color: green;
+}
+
+.active-step .v-stepper__step__step {
+    background-color: green;
+    color: white;
+}
+
+.v-stepper {
+    padding: 0;
+    border: none;
+    box-shadow: none;
 }
 </style>
