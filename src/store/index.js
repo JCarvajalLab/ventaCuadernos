@@ -2,6 +2,8 @@ import { createStore } from "vuex";
 
 export default createStore({
   state: {
+    logueado: false,
+    correoElectronico: '',
     productos: [
       {
         id: 1,
@@ -186,6 +188,14 @@ export default createStore({
     ],
   },
   mutations: {
+    setUser (state, payload) {
+      state.logueado = payload.logueado;
+      state.correoElectronico = payload.correoElectronico;
+    },
+    cerrarSesion(state) {
+      state.logueado = false;
+      state.correoElectronico = '';
+    },
     incrementarCantidad(state, productoId) {
       const producto = state.productos.find(p => p.id === productoId);
       if (producto) {

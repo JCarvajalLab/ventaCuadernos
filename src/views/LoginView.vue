@@ -15,7 +15,6 @@
 </v-app-bar>
 <!-- /Navbar -->
 <div>
-    <!-- <v-img class="mx-auto my-6" max-width="228" src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"></v-img> -->
     <v-card class="mx-auto pa-12 pb-8" elevation="8" max-width="448" rounded="lg" style="margin-top: 5%">
         <div class="text-subtitle-1 text-medium-emphasis">Usuario</div>
 
@@ -23,7 +22,6 @@
 
         <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
             Contraseña
-
             <v-btn class="text-caption text-decoration-none text-blue" text flat @click="goRecoverAccount">
                 ¿Olvidaste tu contraseña?
             </v-btn>
@@ -33,7 +31,7 @@
 
         <v-card class="mb-12" color="surface-variant" variant="tonal">
             <v-card-text class="text-medium-emphasis text-caption">
-                Advertencia: después de 3 intentos de inicio de sesión fallidos consecutivos, su cuenta se bloqueará temporalmente durante tres horas. Si debe iniciar sesión ahora, también puede hacer clic en "¿Olvidó su contraseña de inicio de sesión?" a continuación para restablecer la contraseña de inicio de sesión.
+                Advertencia: después de 3 intentos de inicio de sesión fallidos consecutivos, su cuenta se bloqueará temporalmente durante tres horas.
             </v-card-text>
         </v-card>
 
@@ -61,65 +59,80 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
+import {
+    useStore
+} from "vuex";
 
 export default {
     name: "LoginView",
     data() {
         return {
             user: {
-                correoElectronico: '', //juan.perez@example.com
-                contrasena: '' //Jperez123
+                correoElectronico: "",
+                contrasena: "",
             },
             visible: false,
-            logo: require('@/assets/preview.png'),
-        }
+            logo: require("@/assets/preview.png"),
+        };
+    },
+    setup() {
+        const store = useStore();
+        return {
+            store
+        };
     },
     methods: {
-        login() {
+        async login() {
             if (!this.user.correoElectronico || !this.user.contrasena) {
-                alert('Debes llenar todos los campos')
-            } else {
-                axios.get('https://raw.githubusercontent.com/JCarvajalLab/LoginJsonAxios/refs/heads/main/config.json')
-                    .then((resp) => {
-                        if (this.user.correoElectronico === resp.data.login.correoElectronico && this.user.contrasena === resp.data.login.contrasena) {
-                            alert('logueado'),
-                                this.$router.push({
-                                    name: 'home'
-                                })
-                        } else {
-                            alert('no logueado')
-                        }
-                    })
-                    .catch((error) => {
-                        console.log("error en la solicitud", error)
-                    })
+                alert("Debes llenar todos los campos");
+                return;
+            }
+            try {
+                const response = await axios.get(
+                    "https://raw.githubusercontent.com/JCarvajalLab/LoginJsonAxios/refs/heads/main/config.json"
+                );
+                if (
+                    this.user.correoElectronico === response.data.login.correoElectronico &&
+                    this.user.contrasena === response.data.login.contrasena
+                ) {
+                    alert("Logueado");
+                    this.store.commit("setUser", {
+                        correoElectronico: this.user.correoElectronico,
+                        logueado: true,
+                    });
+                    this.$router.push({
+                        name: "home"
+                    });
+                } else {
+                    alert("Credenciales incorrectas");
+                }
+            } catch (error) {
+                console.error("Error en la solicitud:", error);
             }
         },
         goCreacion() {
             this.$router.push({
-                name: 'cuenta' // Asegúrate de que 'cuenta' sea el nombre correcto de tu ruta
+                name: "cuenta"
             });
         },
         goHome() {
             this.$router.push({
-                name: 'home'
-            }); // Asegúrate de que 'home' sea el nombre correcto de tu ruta
+                name: "home"
+            });
         },
         goRecoverAccount() {
             this.$router.push({
-                name: 'recoverAccount' // Asegúrate de que 'recoverAccount' sea el nombre correcto de tu ruta
+                name: "recoverAccount"
             });
         },
-    }
-}
+    },
+};
 </script>
 
 <style scoped>
 .logo {
     height: 40px;
-    /* Ajusta la altura de la imagen según sea necesario */
     margin: 0;
-    /* Elimina márgenes si es necesario */
 }
 </style>

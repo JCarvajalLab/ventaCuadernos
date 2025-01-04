@@ -15,10 +15,24 @@
             <v-btn text @click="goContacto" style="margin: 0 10px;">Contacto</v-btn>
         </div>
         <div class="d-flex justify-space-between">
-            <v-btn icon="mdi-account-key" text @click="goLogin" style="margin: 0 10px;"></v-btn>
+            <v-menu v-if="logueado" offset-y>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn text v-bind="attrs" v-on="on" style="margin: 0 10px;">
+                        {{ correoElectronico }}
+                        <v-icon right>mdi-chevron-down</v-icon>
+                    </v-btn>
+                    <!-- here -->
+                    <v-list>
+                        <v-list-item @click="cerrarSesion">
+                            <v-list-item-title>Cerrar sesión</v-list-item-title>
+                        </v-list-item>
+                    </v-list>
+                </template> <!-- Este template va arriba, se estaba provando para ver la funcionalidad -->
+            </v-menu>
+            <v-btn v-else icon="mdi-account-key" text @click="goLogin" style="margin: 0 10px;"></v-btn>
             <div style="display: flex; align-items: center;">
                 <v-btn icon="mdi-cart-arrow-down" text @click="goCarro" style="margin: 0 10px;"></v-btn>
-                <v-badge v-if="totalCantidad > 0" color="red" :content="totalCantidad" style="margin-left: -10px; margin-right:10px"> </v-badge> <!-- Badge al lado -->
+                <v-badge v-if="totalCantidad > 0" color="red" :content="totalCantidad" style="margin-left: -10px; margin-right:10px"></v-badge>
             </div>
         </div>
     </template>
@@ -58,8 +72,8 @@ export default {
     data() {
         return {
             drawer: false,
-            logo: require('@/assets/preview.png') // Importa la imagen desde la carpeta assets
-        }
+            logo: require('@/assets/preview.png'),
+        };
     },
     setup() {
         const store = useStore();
@@ -69,8 +83,13 @@ export default {
             return store.state.productos.reduce((total, producto) => total + producto.cantidad, 0);
         });
 
+        const logueado = computed(() => store.state.logueado);
+        const correoElectronico = computed(() => store.state.correoElectronico);
+
         return {
             totalCantidad,
+            logueado,
+            correoElectronico,
             store
         };
     },
@@ -78,7 +97,7 @@ export default {
         goToHome() {
             this.$router.push({
                 name: 'home'
-            }); // Asegúrate de que 'home' sea el nombre correcto de tu ruta
+            });
         },
         goHome() {
             this.$router.push({
@@ -115,16 +134,20 @@ export default {
                 name: 'carrito'
             });
             this.drawer = false;
-        }
+        },
+        cerrarSesion() {
+            this.store.commit('cerrarSesion');
+            this.$router.push({
+                name: 'home'
+            });
+        },
     }
-}
+};
 </script>
 
 <style scoped>
 .logo {
     height: 40px;
-    /* Ajusta la altura de la imagen según sea necesario */
     margin: 0;
-    /* Elimina márgenes si es necesario */
 }
 </style>
